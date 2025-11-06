@@ -1,0 +1,63 @@
+name: Daily Publish
+
+on:
+  schedule:
+    - cron: "0 16 * * *"   # 매일 08:00 PT
+  workflow_dispatch:
+    inputs:
+      posts:
+        description: "이번 실행에서 생성할 포스트 수"
+        required: false
+        default: "1"
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install -r requirements.txt
+
+      - name: Generate content
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          LLM_MODEL: ${{ vars.LLM_MODEL }}
+          POSTS: ${{ inputs.posts }}
+        run: |
+          python generate_post.py --count "${{ inputs.posts }}"
+
+      - name: Commit content to main (if changed)
+        run: |
+          git config user.name "auto-content-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add content || true
+          if ! git diff --cached --quiet; then
+            git commit -m "auto: add content"
+            git push
+          else
+            echo "No content changes to commit."
+          fi
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.128.2'
+
+      - name: Build site
+        run: hugo --minify
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./public
