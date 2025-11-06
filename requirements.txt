@@ -1,0 +1,4 @@
+openai>=1.30.0
+feedparser>=6.0.10
+trafilatura>=1.7.0
+pyyaml>=6.0.1
