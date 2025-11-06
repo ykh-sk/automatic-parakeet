@@ -1,0 +1,14 @@
+{{ define "main" }}
+  <h2 style="margin-bottom:1rem">{{ .Title }}</h2>
+  {{ if .Content }}<div class="page-intro">{{ .Content }}</div>{{ end }}
+  {{ range .Paginator.Pages }}
+    <article style="margin:1.5rem 0">
+      <h3 style="margin:0"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      <small style="color:#888">{{ .Date.Format "2006-01-02" }} · {{ range $i, $t := .Params.tags }}{{ if $i }}, {{ end }}#{{$t}}{{ end }}</small>
+      <div>{{ .Summary }}</div>
+    </article>
+  {{ end }}
+  <div class="pagination">
+    {{ template "_internal/pagination.html" . }}
+  </div>
+{{ end }}

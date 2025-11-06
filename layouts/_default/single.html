@@ -1,0 +1,21 @@
+{{ define "main" }}
+  <article>
+    <h1 style="margin-top:0">{{ .Title }}</h1>
+    <p style="color:#888">{{ .Date.Format "2006-01-02 15:04" }}</p>
+    <div class="tags" style="margin-bottom:1rem;color:#666">Tags:
+      {{ range $i, $t := .Params.tags }}
+        <a href="{{ (printf "/tags/%s/" $t) | relURL }}">#{{$t}}</a>{{ if ne (add $i 1) (len $.Params.tags) }}, {{ end }}
+      {{ end }}
+    </div>
+    <div class="post-content">{{ .Content }}</div>
+    {{ with .Params.sources }}
+      <hr>
+      <h3>Sources</h3>
+      <ul>
+        {{ range . }}
+          <li><a href="{{ . }}">{{ . }}</a></li>
+        {{ end }}
+      </ul>
+    {{ end }}
+  </article>
+{{ end }}

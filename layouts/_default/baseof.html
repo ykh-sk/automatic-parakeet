@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    {{ partial "head.html" . }}
+  </head>
+  <body>
+    <header style="padding:1rem;border-bottom:1px solid #eee">
+      <div class="container">
+        <h1 style="margin:0"><a href="{{ "/" | relURL }}" style="text-decoration:none;color:inherit">{{ .Site.Title }}</a></h1>
+        <p style="margin:0;color:#666">{{ .Site.Params.description }}</p>
+      </div>
+    </header>
+    <main class="container" style="max-width:860px;margin:2rem auto;padding:0 1rem">
+      {{ block "main" . }}{{ end }}
+    </main>
+    <footer style="padding:2rem 1rem;border-top:1px solid #eee;color:#777">
+      <div class="container">
+        <p>Powered by Hugo • 자동 생성 파이프라인 데모</p>
+      </div>
+    </footer>
+  </body>
+</html>

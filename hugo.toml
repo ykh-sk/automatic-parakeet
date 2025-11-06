@@ -1,0 +1,9 @@
+baseURL = "/"
+title = "My Industry Insight Blog"
+languageCode = "ko-kr"
+relativeURLs = true
+canonifyURLs = true
+paginate = 10
+
+[params]
+  description = "자동 생성되는 인더스트리 섹터 블로그 (LLM + RSS + Hugo)"

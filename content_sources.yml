@@ -1,0 +1,26 @@
+timezone: "America/Los_Angeles"
+min_word_count: 900
+
+sectors:
+  - name: "AI Infra"
+    tags: ["AI","GPU","HPC","DC"]
+    feeds:
+      - "https://www.top500.org/news/rss/"
+      - "https://feeds.arstechnica.com/arstechnica/technology-lab"
+      - "https://www.datacenterdynamics.com/en/rss/"
+    keywords: ["GPU cluster","liquid cooling","energy orchestration","PUE","H100","B200"]
+
+  - name: "Healthtech"
+    tags: ["health","DPC","longevity"]
+    feeds:
+      - "https://www.healthit.gov/buzz-blog/feed"
+      - "https://www.fda.gov/medical-devices/news-events-medical-devices/rss.xml"
+    keywords: ["DPC","concierge medicine","RPM","CPT code"]
+
+  - name: "Energy & Data Centers"
+    tags: ["energy","cooling","power","policy"]
+    feeds:
+      - "https://www.utilitydive.com/feeds/news/"
+      - "https://spectrum.ieee.org/engineering/rss"
+      - "https://www.iea.org/rss/news"
+    keywords: ["grid interconnection","microgrid","renewables","liquid cooling","PUE","thermal"]
